@@ -18,8 +18,8 @@ class Function():
             6: "powell_sum",
             7: "qing_function",
             8: "quartic_function",
-            9: "rana",
-            10: "rastrigin",
+            9: "rastrigin",
+            10: "rosenbrock",
             11: "salomon"
         }
 
@@ -158,20 +158,20 @@ class Function():
         result += random.uniform(0, 1)  # Adding a random number between 0 and 1
         return result
    
-    def F9(self, solution, name="rana"):
-        self.name = name
-        x1 = solution[0]
-        xi = solution[1:]
+    # def F9(self, solution, name="rana"):
+    #     self.name = name
+    #     x1 = solution[0]
+    #     xi = solution[1:]
 
-        sqrt_abs_diff = np.sqrt(np.abs(x1 - xi + 1))
-        sqrt_abs_sum = np.sqrt(np.abs(x1 + xi + 1))
+    #     sqrt_abs_diff = np.sqrt(np.abs(x1 - xi + 1))
+    #     sqrt_abs_sum = np.sqrt(np.abs(x1 + xi + 1))
 
-        term1 = xi * np.sin(sqrt_abs_diff) * np.cos(sqrt_abs_sum)
-        term2 = (x1 + 1) * np.sin(sqrt_abs_sum) * np.cos(sqrt_abs_diff)
+    #     term1 = xi * np.sin(sqrt_abs_diff) * np.cos(sqrt_abs_sum)
+    #     term2 = (x1 + 1) * np.sin(sqrt_abs_sum) * np.cos(sqrt_abs_diff)
 
-        return np.sum(term1 + term2)
+    #     return np.sum(term1 + term2)
 
-    def F10(self, solution, name="rastrigin"):
+    def F9(self, solution, name="rastrigin"):
         self.name = name
         A = 10
         n = len(solution)
@@ -182,26 +182,28 @@ class Function():
         
         return result
     
+    def F10(self, solution, name="rosenbrock"):
+        self.name = name
+        n = len(solution)
+        
+        if n < 1:
+            raise ValueError("Dimension of the input vector must be at least 1.")
+        
+        result = 0
+        
+        for i in range(n - 1):
+            result += 100 * (solution[i + 1] - solution[i]**2)**2 + (1 - solution[i])**2
+        
+        return result
+    
     def F11(self, solution, name="salomon"):
         solution = np.array(solution)  # Ensuring solution is a numpy array for vectorized operations
         sum_of_squares = np.sum(solution**2)
         return 1 - np.cos(2 * np.pi * np.sqrt(sum_of_squares)) + 0.1 * np.sqrt(sum_of_squares)
 
 
-    # # function 9
-    # def F8(self, solution, name="rosenbrock"):
-    #     self.name = name
-    #     n = len(solution)
-        
-    #     if n < 1:
-    #         raise ValueError("Dimension of the input vector must be at least 1.")
-        
-    #     result = 0
-        
-    #     for i in range(n - 1):
-    #         result += 100 * (solution[i + 1] - solution[i]**2)**2 + (1 - solution[i])**2
-        
-    #     return result
+    # function 9
+
 
     # # function 10 
     # def F9(self, solution, name="schwefel"):

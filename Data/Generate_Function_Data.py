@@ -18,17 +18,17 @@ from benchmark_functions import quartic_function
 def generate_function_data(dimensions, num_samples, dir_path):
     # Define a list of benchmark functions and their corresponding input domains
     benchmark_functions = [
-        #(ackley,           (-32, 32)),
+        #(ackley,           (-32, 32)), #1
         #(dixon_price,      (-10, 10)),
         #(griewank,       (-100, 100)),
         #(powell_singular, (-4, 5)),
         #(powell_singular2, (-4, 5)),
         #(powell_sum,        (-1, 1)),
         #(qing_function, (-500, 500)),
-        (quartic_function, (-1.28, 1.28))
+        #(quartic_function, (-1.28, 1.28))
         #(rana,           (-500, 500)),
         #(rastrigin,    (-5.12, 5.12)),
-        #(rosenbrock, (-2.048, 2.048)),
+        (rosenbrock, (-2.048, 2.048)),
         #(schwefel,       (-512, 512)),
         #(sphere,       (-5.12, 5.12))
     ]
