@@ -20,7 +20,16 @@ class Function():
             8: "quartic_function",
             9: "rastrigin",
             10: "rosenbrock",
-            11: "salomon"
+            11: "salomon",
+            12: "sargan_function",
+            13: "schumer_steiglitz",
+            14: "schwefel_1_2",
+            15: "sphere",
+            16: "step_function",
+            17: "streched_v_sine_wave",
+            18: "trigonometric_1",
+            19: "trigonometric_2",
+            20: "weierstrass"
         }
 
         self.name = function_names.get(function_number, "")
@@ -197,39 +206,124 @@ class Function():
         return result
     
     def F11(self, solution, name="salomon"):
-        solution = np.array(solution)  # Ensuring solution is a numpy array for vectorized operations
-        sum_of_squares = np.sum(solution**2)
-        return 1 - np.cos(2 * np.pi * np.sqrt(sum_of_squares)) + 0.1 * np.sqrt(sum_of_squares)
+        if name == "sargan_function":
+            solution = np.array(solution)  # Ensuring solution is a numpy array for vectorized operations
+            sum_of_squares = np.sum(solution**2)
+            return 1 - np.cos(2 * np.pi * np.sqrt(sum_of_squares)) + 0.1 * np.sqrt(sum_of_squares)
+        else:
+            # Handle other functions if needed
+            raise ValueError("Unsupported function name")
+   
+    def F12(self, solution, name="sargan_function"):
+        if name == "sargan_function":
+            D = len(solution)
+            result = 0
+            for i in range(D):
+                term1 = solution[i] ** 2
+                term2 = 0.4 * np.prod([solution[j] for j in range(D) if j != i])
+                result += term1 + term2
+            return result
+        else:
+            # Handle other functions if needed
+            raise ValueError("Unsupported function name")
+        
+    def F13(self, solution, name="schumer_steiglitz"):
+        if name == "schumer_steiglitz":
+            D = len(solution)
+            result = 0
+            for i in range(D):
+                result += solution[i] ** (4 * (i + 1))
+            return result
+        else:
+            raise ValueError("Unsupported function name")
+        
+    def F14(self, solution, name="schwefel_1_2"):
+        if name == "schwefel_1_2":
+            D = len(solution)
+            result = 0
+            for i in range(D):
+                for j in range(i + 1):
+                    result += solution[j] ** 2
+            return result
+        else:
+            raise ValueError("Unsupported function name")
+    
+    def F15(self, solution, name="sphere"):
+        self.name = name
+        n = len(solution)
+        
+        if n < 1:
+            raise ValueError("Dimension of the input vector must be at least 1.")
+        
+        result = np.sum(solution**2)
+        
+        return result
 
+    def F16(self, solution, name="step_function"):
+        if name == "step_function":
+            D = len(solution)
+            result = 0
+            for i in range(D):
+                result += int(abs(solution[i]))
+            return result
+        else:
+            raise ValueError("Unsupported function name")
 
-    # function 9
+    def F17(self, solution, name="streched_v_sine_wave"):
+        if name == "streched_v_sine_wave":
+            D = len(solution)
+            result = 0
+            for i in range(D):
+                term1 = solution[2 * i] ** 2 + solution[2 * i + 1] ** 2
+                term2 = np.sin(50 * term1 ** 0.1) ** 2
+                result += term1 ** 0.25 * term2 + 0.1 * i
+            return result
+        else:
+            raise ValueError("Unsupported function name")
+    
+    def F18(self, solution, name="trigonometric_1"):
+        if name == "trigonometric_1":
+            D = len(solution)
+            result = 0
+            for i in range(D):
+                inner_sum = 0
+                for j in range(D):
+                    inner_sum += solution[j] * np.cos(solution[j])
+                result += (D - inner_sum + (i + 1) * (1 - np.cos(solution[i]) - np.sin(solution[i]))) ** 2
+            return result
+        else:
+            raise ValueError("Unsupported function name")
+        
+    def F19(self, solution, name="trigonometric_2"):
+        if name == "trigonometric_2":
+            D = len(solution)
+            result = 1
+            for i in range(D):
+                term1 = 8 * np.sin(7 * (solution[i] - 0.9) ** 2)
+                term2 = 6 * np.sin(14 * (solution[0] - 0.9) ** 2)
+                term3 = (solution[i] - 0.9) ** 2
+                result += term1 + term2 + term3
+            return result
+        else:
+            raise ValueError("Unsupported function name")
+        
+    def F20(self, solution, name="weierstrass"):
+        if name == "weierstrass":
+            D = len(solution)
+            a = 0.5
+            b = 3.0
+            kmax = 20
+            result = 0
+            for i in range(D):
+                term1 = 0
+                term2 = 0
+                for k in range(kmax + 1):
+                    term1 += a ** k * np.cos(2 * np.pi * b ** k * (solution[i] + 0.5))
+                    term2 += a ** k * np.cos(np.pi * b ** k)
+                result += term1 - term2
+            return result
+        else:
+            raise ValueError("Unsupported function name")
 
-
-    # # function 10 
-    # def F9(self, solution, name="schwefel"):
-    #     self.name = name
-    #     n = len(solution)
-        
-    #     if n < 1:
-    #         raise ValueError("Dimension of the input vector must be at least 1.")
-        
-    #     result = 418.9829 * n
-        
-    #     for i in range(n):
-    #         result -= solution[i] * np.sin(np.sqrt(abs(solution[i])))
-        
-    #     return result
-
-    # # function 11
-    # def F10(self, solution, name="sphere"):
-    #     self.name = name
-    #     n = len(solution)
-        
-    #     if n < 1:
-    #         raise ValueError("Dimension of the input vector must be at least 1.")
-        
-    #     result = np.sum(solution**2)
-        
-    #     return result
     
             
