@@ -5,15 +5,24 @@ from benchmark_functions import ackley
 from benchmark_functions import dixon_price
 from benchmark_functions import griewank
 from benchmark_functions import powell_singular
-from benchmark_functions import rana
 from benchmark_functions import rastrigin
-from benchmark_functions import schwefel
 from benchmark_functions import sphere
 from benchmark_functions import rosenbrock
 from benchmark_functions import powell_sum
 from benchmark_functions import powell_singular2
 from benchmark_functions import qing_function
 from benchmark_functions import quartic_function
+from benchmark_functions import brown
+from benchmark_functions import schwefel
+
+from benchmark_functions import schwefel_2_20
+from benchmark_functions import streched_v_sine_wave
+from benchmark_functions import weierstrass
+from benchmark_functions import zakharov
+from benchmark_functions import stepint
+from benchmark_functions import sum_squares
+from benchmark_functions import salomon
+from benchmark_functions import schumer_steiglitz
 
 def generate_function_data(dimensions, num_samples, dir_path):
     # Define a list of benchmark functions and their corresponding input domains
@@ -26,11 +35,22 @@ def generate_function_data(dimensions, num_samples, dir_path):
         #(powell_sum,        (-1, 1)),
         #(qing_function, (-500, 500)),
         #(quartic_function, (-1.28, 1.28))
-        #(rana,           (-500, 500)),
         #(rastrigin,    (-5.12, 5.12)),
-        (rosenbrock, (-2.048, 2.048)),
+        #(rosenbrock, (-2.048, 2.048)),
+        #(brown, (-1, 4))
         #(schwefel,       (-512, 512)),
         #(sphere,       (-5.12, 5.12))
+        #(schwefel, (-100, 100))
+        #(schwefel_1_2, (-100, 100))
+        #(schwefel_2_20, (-100, 100))
+        (weierstrass, (-0.5,0.5))
+        # (zakharov, (-5, 10)),
+        # (stepint, (-5.12, 5.12))
+        #(sum_squares, (-10, 10))
+        #(salomon, (-100, 100)),
+        
+
+     
     ]
 
     all_results = []

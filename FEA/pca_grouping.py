@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import networkx as nx
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import MinMaxScaler
 from sklearn.decomposition import PCA
 from FactorArchitecture import FactorArchitecture
 from Function import Function
@@ -37,7 +37,7 @@ def load_and_prepare_pca_data(file_path):
     df = pd.read_csv(file_path)
 
     # Scale the data
-    scaler = StandardScaler()
+    scaler = MinMaxScaler()
     X_std = scaler.fit_transform(df)
     return X_std
 ##########################################

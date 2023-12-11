@@ -107,19 +107,6 @@ def quartic_function(x):
     result += random.uniform(0, 1)  # Adding a random number between 0 and 1
     return result
 
-# function 7
-def rana(x):
-    x1 = x[0]
-    xi = x[1:]
-
-    sqrt_abs_diff = np.sqrt(np.abs(x1 - xi + 1))
-    sqrt_abs_sum = np.sqrt(np.abs(x1 + xi + 1))
-
-    term1 = xi * np.sin(sqrt_abs_diff) * np.cos(sqrt_abs_sum)
-    term2 = (x1 + 1) * np.sin(sqrt_abs_sum) * np.cos(sqrt_abs_diff)
-
-    return np.sum(term1 + term2)
-
 # function 8
 def rastrigin(x):
     A = 10
@@ -145,33 +132,19 @@ def rosenbrock(x):
     
     return result
 
-# function 10 
-def schwefel(x):
-    n = len(x)
-    
-    if n < 1:
-        raise ValueError("Dimension of the input vector must be at least 1.")
-    
-    result = 418.9829 * n
-    
-    for i in range(n):
-        result -= x[i] * np.sin(np.sqrt(abs(x[i])))
-    
-    return result
 
-def salomon_function(x):
+def salomon(x):
     x = np.array(x)  # Ensuring x is a numpy array for vectorized operations
     sum_of_squares = np.sum(x**2)
     return 1 - np.cos(2 * np.pi * np.sqrt(sum_of_squares)) + 0.1 * np.sqrt(sum_of_squares)
 
-def sargan_function(x):
+
+def schumer_steiglitz(x):
     D = len(x)
     result = 0
     for i in range(D):
-        sum_j = sum(x[j] for j in range(D) if j != i)
-        result += x[i]**2 + 0.4 * x[i] * sum_j
+        result += x[i] ** (4 * (i + 1))
     return result
-
 
 
 # function 11
@@ -186,4 +159,126 @@ def sphere(x):
     return result
 
 
+def schwefel(x, alpha=0.5):
+    """
+    Schwefel Function
 
+    Args:
+    - x (list or numpy.ndarray): A list or an array of coordinates.
+    - alpha (float): The exponent parameter, typically 0.5.
+
+    Returns:
+    - float: The function's value at x.
+
+    Description:
+    This is a continuous, differentiable, partially-separable, scalable, unimodal function.
+    It is defined as the sum of the individual elements of x raised to the power of 2*alpha.
+    The function is defined for x values in the range of [-100, 100].
+
+    The global minimum is located at x* = (0, ..., 0), and f(x*) = 0.
+    """
+
+    return sum(xi**2 * alpha for xi in x)
+
+def schwefel_1_2(x):
+    """
+    Schwefel 1.2 Function
+
+    Args:
+    - x (list or numpy.ndarray): A list or an array of coordinates.
+
+    Returns:
+    - float: The function's value at x.
+
+    Description:
+    This is a continuous, differentiable, non-separable, scalable, unimodal function.
+    It is defined as the sum of the squared differences of all pairs of elements in x.
+    The function is defined for x values in the range of [-100, 100].
+
+    The global minimum is located at x* = (0, ..., 0), and f(x*) = 0.
+    """
+
+    D = len(x)
+    total = 0
+    for i in range(D):
+        for j in range(D):
+            total += (x[i] - x[j])**2
+
+    return total
+
+def schwefel_2_20(x):
+    """
+    Schwefel 2.20 Function
+
+    Args:
+    - x (list or numpy.ndarray): A list or an array of coordinates.
+
+    Returns:
+    - float: The function's value at x.
+
+    Description:
+    This is a continuous, non-differentiable, separable, scalable, unimodal function.
+    It is defined as the negative sum of the absolute values of the elements in x.
+    The function is defined for x values in the range of [-100, 100].
+
+    The global minimum is located at x* = (0, ..., 0), and f(x*) = 0.
+    """
+
+    return -sum(abs(xi) for xi in x)
+
+
+def streched_v_sine_wave(x):
+    D = len(x)
+    result = 0
+    for i in range(D):
+        term1 = x[2 * i] ** 2 + x[2 * i + 1] ** 2
+        term2 = np.sin(50 * term1 ** 0.1) ** 2
+        result += term1 ** 0.25 * term2 + 0.1 * i
+    return result
+
+def weierstrass(x):
+    D = len(x)
+    a = 0.5
+    b = 3.0
+    kmax = 20
+    result = 0
+    for i in range(D):
+        term1 = 0
+        term2 = 0
+        for k in range(kmax + 1):
+            term1 += a ** k * np.cos(2 * np.pi * b ** k * (x[i] + 0.5))
+            term2 += a ** k * np.cos(np.pi * b ** k)
+        result += term1 - term2
+    return result
+
+def brown(x):
+    """
+    Computes the Brown function value for a given input vector x.
+
+    Args:
+    x (list or numpy array): Input vector.
+
+    Returns:
+    float: The function value at x.
+    """
+    n = len(x)
+    sum = 0
+    for i in range(n - 1):
+        sum += (x[i]**2)**(x[i + 1]**2 + 1) + (x[i + 1]**2)**(x[i]**2 + 1)
+    return sum
+
+def zakharov(x):
+    n = len(x)
+    sum1 = sum(xi**2 for xi in x)
+    sum2 = sum(i * xi for i, xi in enumerate(x, start=1))
+    return sum1 + sum2**2
+
+def stepint(x):
+    D = len(x)
+    sum_term = sum(int(xi) for xi in x)
+    return 25 + sum_term
+
+def sum_squares(x):
+    D = len(x)
+    sum_term = sum((i + 1) * xi**2 for i, xi in enumerate(x))
+    return sum_term

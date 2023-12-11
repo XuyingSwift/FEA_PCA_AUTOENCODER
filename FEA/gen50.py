@@ -1,22 +1,34 @@
 from classic_random_grouping import run_random_fea_process
 from pca_grouping import run_pca_fea_process
-    
+import math
+   
 # ANSI escape codes for color (e.g., green)
 GREEN = "\033[92m"
 RESET = "\033[0m"
 RED = "\033[91m"
 
 benchmark_functions = [
-    ('ackley', (-32, 32)), 
-    ('dixon_price', (-10, 10)),
-    ('griewank', (-100, 100)),
-    ('powell_singular', (-4, 5)),
-    ('powell_singular2', (-4, 5)),
-    ('powell_sum',     (-1, 1)),
-    ('qing_function', (-500, 500)),
-    ('quartic_function', (-1.28, 1.28)),
-    ('rastrigin', (-5.12, 5.12)),
-    ('rosenbrock', (-2.048, 2.048))
+        ('ackley', (-32, 32)),
+        ('brown', (-1, 4))
+        # ('dixon_price', (-10, 10)),
+        # ('griewank', (-100, 100)),
+        # ('powell_singular', (-4, 5)),
+        # ('powell_singular2', (-4, 5)),
+        # ('powell_sum',     (-1, 1)),
+        # ('qing_function', (-500, 500)),
+        # ('quartic_function', (-1.28, 1.28)),
+        # ('rastrigin', (-5.12, 5.12)),
+        # ('rosenbrock', (-2.048, 2.048)),
+        # ('salomon', (-100, 100)),
+        # ('sargan_function', (-100,100)),
+        # ("schumer_steiglitz", (-100, 100)),
+        # ("schwefel_1_2", (-100, 100)),
+        # ("sphere", (-5.12, 5.12)),
+        # ("step_function", (-100,100)),
+        # ("streched_v_sine_wave", (-10, 10)),
+        # ("trigonometric_1", (0, math.pi)),
+        # ("trigonometric_2", (-500, 500)),
+        # ("weierstrass", (-0.5, 0.5))
 ]
 
 def check_function(function_name, fcn_num, lb, ub, benchmark_functions):
@@ -40,10 +52,11 @@ def pca():
     fea_runs = 50
     generations = 100
     pop_size = 100
-    function_name = 'powell_singular2'
-    fcn_num = 5
-    lb = -4
-    ub = 5
+
+    function_name = 'brown'
+    fcn_num = 2
+    lb = -1
+    ub = 4
     # Define file paths
     data_file_path = base_data_path + function_name + ".csv"
     performance_result_file = function_name + '_pca_data_dim_50_gen_50000_result.csv'
@@ -77,11 +90,11 @@ def random_fea():
     fea_runs = 50
     generations = 100
     pop_size = 100
-    
-    function_name ='powell_singular2'
-    fcn_num = 5
-    lb = -4
-    ub = 5
+  
+    function_name = 'brown'
+    fcn_num = 2
+    lb = -1
+    ub = 4
     # Define file paths
     performance_result_file = function_name + '_random_data_dim_50_gen_50000_result.csv'
 

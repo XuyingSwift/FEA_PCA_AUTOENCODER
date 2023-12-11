@@ -7,34 +7,6 @@ from pso import PSO
 
 def classic_random_grouping(N, M):
     """
-    Create random groupings as per the definition by Yang et al. Each group will have a pre-defined size and 
-    variables are randomly added to groups.
-
-    Args:
-    N (int): Number of groups to be created.
-    M (int): Size of each group.
-
-    Returns:
-    list of list: A list of groups, each group is a list of variable names.
-    """
-    # Create a list of all variables
-    variables = list(range(N))
-
-    # Shuffle the list of variables
-    random.shuffle(variables)
-
-    # Initialize list to store groups
-    groups = []
-
-    # Create groups of size M
-    for i in range(0, len(variables), M):
-        group = variables[i:i + M]
-        groups.append(group)
-
-    return groups
-
-def overlapping_random_grouping(N, M):
-    """
     Create overlapping random groupings. Each group will have a pre-defined size and 
     variables can be randomly added to multiple groups.
 
@@ -58,6 +30,7 @@ def overlapping_random_grouping(N, M):
 
     return groups
 
+
 def run_random_fea_process(dim, 
                     fea_runs, generations, 
                     pop_size,
@@ -70,6 +43,7 @@ def run_random_fea_process(dim,
 
     #factors = classic_random_grouping(dim, 5)
     factors = classic_random_grouping(dim, dim//2)
+    print(factors)
 
     # Define the factor architecture
     fa = FactorArchitecture(dim, factors)

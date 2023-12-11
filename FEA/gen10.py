@@ -1,6 +1,7 @@
 from pso import PSO
 from classic_random_grouping import run_random_fea_process
 from pca_grouping import run_pca_fea_process
+import math
     
 # ANSI escape codes for color (e.g., green)
 GREEN = "\033[92m"
@@ -9,6 +10,7 @@ PINK = "\033[95]"
 
 benchmark_functions = [
         ('ackley', (-32, 32)), 
+        ('brown', (-1, 4)),
         ('dixon_price', (-10, 10)),
         ('griewank', (-100, 100)),
         ('powell_singular', (-4, 5)),
@@ -18,7 +20,12 @@ benchmark_functions = [
         ('quartic_function', (-1.28, 1.28)),
         ('rastrigin', (-5.12, 5.12)),
         ('rosenbrock', (-2.048, 2.048)),
-        ('salomon', (-100, 100))
+        ('salomon_function', (-100, 100)),
+        ("schumer_steiglitz", (-100, 100)),
+        ("schwefel_1_2", (-100, 100)),
+        ("sphere", (-5.12, 5.12)),
+        ("streched_v_sine_wave", (-10, 10)),
+        ("weierstrass", (-0.5, 0.5))
     ]
 
 def check_function(function_name, fcn_num, lb, ub, benchmark_functions):
@@ -42,14 +49,14 @@ def pca():
     generations = 100
     pop_size = 100
 
-    function_name = 'powell_singular2'
-    fcn_num = 5
-    lb = -4
-    ub = 5
+    function_name = 'brown'
+    fcn_num = 2
+    lb = -1
+    ub = 4
 
     # Define file paths
     data_file_path = base_data_path + function_name + ".csv"
-    performance_result_file = function_name + 'pca_data_dim_10_gen_10000_result.csv'
+    performance_result_file = function_name + '_pca_data_dim_10_gen_10000_result.csv'
     max_threshold_factors_file = function_name + '_dim10_threshold.csv'
     
     # Your print statement with color
@@ -84,10 +91,10 @@ def random_fea():
     generations = 100
     pop_size = 100
     
-    function_name = 'powell_singular2'
-    fcn_num = 5
-    lb = -4
-    ub = 5
+    function_name = 'ackley'
+    fcn_num = 1
+    lb = -32
+    ub = 32
     # Define file paths
     performance_result_file = function_name + '_random_data_dim_10_gen_10000_result.csv'
 
@@ -108,7 +115,9 @@ def random_fea():
     print(PINK + f"Random 10 Completed.")
 
 def main():
-    pca()
+    #print ("START PCA")
+    #pca()
+    print(PINK + f"START RANDOM")
     random_fea()
 
 main()
